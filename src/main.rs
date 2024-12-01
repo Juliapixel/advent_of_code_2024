@@ -1,5 +1,3 @@
-#![feature(concat_idents)]
-
 use advent_of_code_2024::cli::ARGS;
 use advent_of_code_2024::get_input;
 

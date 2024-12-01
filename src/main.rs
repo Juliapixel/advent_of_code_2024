@@ -1,3 +1,6 @@
+use std::fmt::Display;
+use std::time::Duration;
+
 use advent_of_code_2024::cli::ARGS;
 use advent_of_code_2024::get_input;
 
@@ -6,36 +9,46 @@ mod days;
 use paste::paste;
 
 macro_rules! day {
-    ($result: ident, $day: literal) => {
+    ($result: ident, $time:ident, $day: literal) => {
         if ARGS.day == $day {
+            let input = get_input($day);
             if ARGS.part == 1 {
+                let start = ::std::time::Instant::now();
                 paste! {
-                    $result = Some(days::[< day_ $day _1 >]::solve(get_input($day)));
+                    let _ = $result.insert(<crate::days::[< Day $day Part1 >] as ::advent_of_code_2024::Solution>::solve(input));
                 }
+                let _ = $time.insert(start.elapsed());
             } else if ARGS.part == 2 {
+                let start = ::std::time::Instant::now();
                 paste! {
-                    $result = Some(days::[< day_ $day _2 >]::solve(get_input($day)));
+                    let _ = $result.insert(<crate::days::[< Day $day Part2 >] as ::advent_of_code_2024::Solution>::solve(input));
                 }
+                let _ = $time.insert(start.elapsed());
             }
         }
     }
 }
 
 macro_rules! match_days {
-    ($result:ident, $($days:literal),+) => {
-        $(day!($result, $days));+
+    ($result:ident, $time:ident, $($days:literal),+) => {
+        $(day!($result, $time, $days));+
     };
 }
 
 fn main() {
-    let mut result = None;
-    match_days!(result, 1);
-    match result {
-        Some(res) => {
-            println!("result: {res}")
-        },
-        None => {
-            println!("no result provided!")
+    let mut result: Option<Box<dyn Display>> = None;
+    let mut time: Option<Duration> = None;
+    match_days!(
+        result, time, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+        22, 23, 24, 25
+    );
+    match (result, time) {
+        (Some(res), Some(time)) => {
+            println!("result: {res}");
+            println!("took: {:.06}ms", time.as_secs_f64() * 1000.0);
+        }
+        _ => {
+            println!("oh noey, no result returned!");
         }
     }
 }

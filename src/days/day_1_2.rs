@@ -9,7 +9,7 @@ pub fn solve(input: String) -> String {
 
     let mut right_count = HashMap::<i32, i32>::new();
     for i in right.into_iter() {
-        *right_count.entry(i).or_insert(0) += 1;
+        right_count.entry(i).and_modify(|e| *e += 1).or_insert(1);
     }
 
     let total: i32 = left

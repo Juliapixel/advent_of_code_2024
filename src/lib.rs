@@ -1,3 +1,5 @@
+use cli::ARGS;
+
 pub mod cli;
 
 pub fn get_input(day: u8) -> String {
@@ -17,7 +19,7 @@ fn get_input_year_day(year: u32, day: u8) -> String {
 
     req.headers_mut().insert(
         "cookie",
-        format!("session={}", dotenvy::var("AOC_SESSION").unwrap())
+        format!("session={}", &ARGS.session)
             .try_into()
             .unwrap(),
     );

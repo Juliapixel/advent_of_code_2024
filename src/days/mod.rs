@@ -1,10 +1,8 @@
 macro_rules! day_mod {
     ($day: literal) => {
         paste::paste! {
-            mod [< day_ $day _1>];
-            pub use [< day_ $day _1>]::[< Day $day Part1 >];
-            mod [< day_ $day _2>];
-            pub use [< day_ $day _2>]::[< Day $day Part2 >];
+            mod [< day_ $day>];
+            pub use [< day_ $day >]::[< Day $day >];
         }
     };
 }

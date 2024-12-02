@@ -30,5 +30,7 @@ fn get_input_year_day(year: u32, day: u8) -> String {
 }
 
 pub trait Solution {
-    fn solve(input: String) -> Box<dyn Display>;
+    fn part_1(input: String) -> Box<dyn Display>;
+
+    fn part_2(input: String) -> Box<dyn Display>;
 }

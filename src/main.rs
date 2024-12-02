@@ -16,7 +16,7 @@ macro_rules! day {
                 let start = ::std::time::Instant::now();
                 paste! {
                     let _ = $result.insert(
-                        <crate::days::[< Day $day Part1 >] as ::advent_of_code_2024::Solution>::solve(input)
+                        <crate::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_1(input)
                     );
                 }
                 let _ = $time.insert(start.elapsed());
@@ -24,7 +24,7 @@ macro_rules! day {
                 let start = ::std::time::Instant::now();
                 paste! {
                     let _ = $result.insert(
-                        <crate::days::[< Day $day Part2 >] as ::advent_of_code_2024::Solution>::solve(input)
+                        <crate::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_2(input)
                     );
                 }
                 let _ = $time.insert(start.elapsed());

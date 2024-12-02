@@ -1,23 +1,28 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-for day in $(seq 2 25);
-do
-    for part in $(seq 1 2);
-    do
+interp() {
     file="use std::fmt::Display;
 
 use advent_of_code_2024::Solution;
 
-pub struct Day${day}Part${part};
+pub struct Day${1};
 
-impl Solution for Day${day}Part${part} {
-    fn solve(input: String) -> Box<dyn Display> {
-        todo!(\"day ${day} part ${part} not done!\")
+impl Solution for Day${1} {
+    fn part_1(input: String) -> Box<dyn Display> {
+        todo!(\"day ${1} part 1 not done!\")
+    }
+
+    fn part_2(input: String) -> Box<dyn Display> {
+        todo!(\"day ${1} part 2 not done!\")
     }
 }
 "
-    echo "$file" > ./day_${day}_${part}.rs
-    done;
+    echo "$file"
+}
 
+
+for day in $(seq 2 25);
+do
+    interp $day > ./day_${day}.rs
 done;

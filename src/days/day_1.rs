@@ -30,7 +30,7 @@ impl Solution for Day1 {
         let total: i32 = left
             .into_iter()
             .zip(right)
-            .fold(0, |sum, (l, r)| sum + l.max(r) - l.min(r));
+            .fold(0, |sum, (l, r)| sum + (l - r).abs());
 
         Box::new(total)
     }

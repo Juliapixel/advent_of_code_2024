@@ -18,10 +18,8 @@ fn get_input_year_day(year: u32, day: u8, session: &str) -> String {
             .unwrap(),
     );
 
-    req.headers_mut().insert(
-        "cookie",
-        format!("session={}", session).try_into().unwrap(),
-    );
+    req.headers_mut()
+        .insert("cookie", format!("session={}", session).try_into().unwrap());
 
     let resp = reqwest::blocking::Client::new().execute(req);
 

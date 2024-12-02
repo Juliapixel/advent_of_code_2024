@@ -21,8 +21,8 @@ fn parse(input: &str) -> (Vec<i32>, Vec<i32>) {
 pub struct Day1;
 
 impl Solution for Day1 {
-    fn part_1(input: String) -> Box<dyn Display> {
-        let (mut left, mut right) = parse(&input);
+    fn part_1(input: &str) -> Box<dyn Display> {
+        let (mut left, mut right) = parse(input);
 
         left.sort_unstable();
         right.sort_unstable();
@@ -35,8 +35,8 @@ impl Solution for Day1 {
         Box::new(total)
     }
 
-    fn part_2(input: String) -> Box<dyn Display> {
-        let (left, right) = parse(&input);
+    fn part_2(input: &str) -> Box<dyn Display> {
+        let (left, right) = parse(input);
 
         let mut right_count = HashMap::<i32, i32>::new();
         for i in right.into_iter() {

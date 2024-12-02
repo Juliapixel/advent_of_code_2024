@@ -40,8 +40,8 @@ fn is_safe(vals: impl Iterator<Item = i32>) -> bool {
 }
 
 impl Solution for Day2 {
-    fn part_1(input: String) -> Box<dyn Display> {
-        let reports = parse(&input);
+    fn part_1(input: &str) -> Box<dyn Display> {
+        let reports = parse(input);
         let valids: i32 = reports
             .into_iter()
             .map(|r| is_safe(r.into_iter()) as i32)
@@ -49,8 +49,8 @@ impl Solution for Day2 {
         Box::new(valids)
     }
 
-    fn part_2(input: String) -> Box<dyn Display> {
-        let reports = parse(&input);
+    fn part_2(input: &str) -> Box<dyn Display> {
+        let reports = parse(input);
         let valids = reports
             .into_iter()
             .map(|r| {

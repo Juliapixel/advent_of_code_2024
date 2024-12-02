@@ -9,11 +9,11 @@ use crate::Solution;
 pub struct Day${1};
 
 impl Solution for Day${1} {
-    fn part_1(input: String) -> Box<dyn Display> {
+    fn part_1(input: &str) -> Box<dyn Display> {
         todo!(\"day ${1} part 1 not done!\")
     }
 
-    fn part_2(input: String) -> Box<dyn Display> {
+    fn part_2(input: &str) -> Box<dyn Display> {
         todo!(\"day ${1} part 2 not done!\")
     }
 }

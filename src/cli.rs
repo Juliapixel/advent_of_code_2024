@@ -15,4 +15,6 @@ pub struct Args {
     pub part: u8,
     #[arg(long, env = "AOC_SESSION", hide_env_values(true))]
     pub session: String,
+    #[arg(long)]
+    pub bench: bool,
 }

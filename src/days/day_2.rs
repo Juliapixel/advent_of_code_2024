@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use advent_of_code_2024::Solution;
+use crate::Solution;
 
 pub struct Day2;
 
@@ -13,4 +13,3 @@ impl Solution for Day2 {
         todo!("day 2 part 2 not done!")
     }
 }
-

@@ -1,14 +1,13 @@
 use std::fmt::Display;
 
-use cli::ARGS;
-
 pub mod cli;
+pub mod days;
 
-pub fn get_input(day: u8) -> String {
-    get_input_year_day(2024, day)
+pub fn get_input(day: u8, session: &str) -> String {
+    get_input_year_day(2024, day, session)
 }
 
-fn get_input_year_day(year: u32, day: u8) -> String {
+fn get_input_year_day(year: u32, day: u8, session: &str) -> String {
     assert!(year >= 2015);
     assert!(day > 0 && day <= 25);
 
@@ -21,7 +20,7 @@ fn get_input_year_day(year: u32, day: u8) -> String {
 
     req.headers_mut().insert(
         "cookie",
-        format!("session={}", &ARGS.session).try_into().unwrap(),
+        format!("session={}", session).try_into().unwrap(),
     );
 
     let resp = reqwest::blocking::Client::new().execute(req);

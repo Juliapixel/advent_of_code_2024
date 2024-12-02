@@ -3,20 +3,19 @@ use std::time::Duration;
 
 use advent_of_code_2024::cli::ARGS;
 use advent_of_code_2024::get_input;
-
-mod days;
+use advent_of_code_2024::days;
 
 use paste::paste;
 
 macro_rules! day {
     ($result: ident, $time:ident, $day: literal) => {
         if ARGS.day == $day {
-            let input = get_input($day);
+            let input = get_input($day, &ARGS.session);
             if ARGS.part == 1 {
                 let start = ::std::time::Instant::now();
                 paste! {
                     let _ = $result.insert(
-                        <crate::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_1(input)
+                        <::advent_of_code_2024::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_1(input)
                     );
                 }
                 let _ = $time.insert(start.elapsed());
@@ -24,7 +23,7 @@ macro_rules! day {
                 let start = ::std::time::Instant::now();
                 paste! {
                     let _ = $result.insert(
-                        <crate::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_2(input)
+                        <::advent_of_code_2024::days::[< Day $day >] as ::advent_of_code_2024::Solution>::part_2(input)
                     );
                 }
                 let _ = $time.insert(start.elapsed());

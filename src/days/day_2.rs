@@ -7,7 +7,11 @@ pub struct Day2;
 fn parse(input: &str) -> Vec<Vec<i32>> {
     input
         .lines()
-        .map(|l| l.split_ascii_whitespace().map(|c| c.parse::<i32>().unwrap()).collect::<Vec<i32>>())
+        .map(|l| {
+            l.split_ascii_whitespace()
+                .map(|c| c.parse::<i32>().unwrap())
+                .collect::<Vec<i32>>()
+        })
         .collect()
 }
 
@@ -31,8 +35,8 @@ fn is_safe(vals: impl Iterator<Item = i32>) -> bool {
                 if is_asc != (i > prev.unwrap()) {
                     return false;
                 }
-            },
-            None => is_asc = Some(i > prev.unwrap())
+            }
+            None => is_asc = Some(i > prev.unwrap()),
         };
         prev = Some(i)
     }
@@ -54,10 +58,15 @@ impl Solution for Day2 {
         let valids = reports
             .into_iter()
             .map(|r| {
-                is_safe(r.iter().copied()) ||
-                (0..r.len()).any(|i| {
-                    is_safe(r.iter().enumerate().filter(|(j, _)| *j != i).map(|(_, val)| *val))
-                })
+                is_safe(r.iter().copied())
+                    || (0..r.len()).any(|i| {
+                        is_safe(
+                            r.iter()
+                                .enumerate()
+                                .filter(|(j, _)| *j != i)
+                                .map(|(_, val)| *val),
+                        )
+                    })
             })
             .map(i32::from)
             .sum::<i32>();

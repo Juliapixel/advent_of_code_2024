@@ -35,7 +35,7 @@ impl Solution for Day3 {
             if let Some(next_start) = dos.find(|d| *d > next_dont) {
                 start = next_start;
             } else {
-                break
+                break;
             }
         }
 

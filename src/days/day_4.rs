@@ -32,7 +32,7 @@ impl Iterator for VerticalStrIter<'_> {
 
 enum Direction {
     LeftToRight,
-    RightToLeft
+    RightToLeft,
 }
 
 struct DiagonalStrIter<'a> {
@@ -52,7 +52,7 @@ impl<'a> DiagonalStrIter<'a> {
             lines,
             column,
             direction,
-            done: false
+            done: false,
         }
     }
 }
@@ -73,7 +73,7 @@ impl Iterator for DiagonalStrIter<'_> {
                 } else {
                     self.done = true;
                 }
-            },
+            }
         };
         next
     }
@@ -82,12 +82,12 @@ impl Iterator for DiagonalStrIter<'_> {
 impl Solution for Day4 {
     fn part_1(input: &str) -> Box<dyn Display> {
         let width = input.lines().next().unwrap().chars().count();
-        let (height, finds) = input
-            .lines()
-            .fold(
-                (0usize, 0usize),
-                |(h, f), l| (h + 1, f + l.matches("XMAS").count() + l.matches("SAMX").count())
-            );
+        let (height, finds) = input.lines().fold((0usize, 0usize), |(h, f), l| {
+            (
+                h + 1,
+                f + l.matches("XMAS").count() + l.matches("SAMX").count(),
+            )
+        });
         let mut count = finds;
 
         for i in 0..width {
@@ -96,42 +96,26 @@ impl Solution for Day4 {
             count += vertical.matches("SAMX").count();
 
             // diagonals starting at the top row
-            let diagonal_ltr: String = DiagonalStrIter::new(
-                input,
-                i,
-                0,
-                Direction::LeftToRight
-            ).collect();
+            let diagonal_ltr: String =
+                DiagonalStrIter::new(input, i, 0, Direction::LeftToRight).collect();
             count += diagonal_ltr.matches("XMAS").count();
             count += diagonal_ltr.matches("SAMX").count();
 
-            let diagonal_rtl: String = DiagonalStrIter::new(
-                input,
-                i,
-                0,
-                Direction::RightToLeft
-            ).collect();
+            let diagonal_rtl: String =
+                DiagonalStrIter::new(input, i, 0, Direction::RightToLeft).collect();
             count += diagonal_rtl.matches("XMAS").count();
             count += diagonal_rtl.matches("SAMX").count();
         }
 
         // diagonals starting in left and right edges
         for i in 1..height {
-            let diagonal_ltr: String = DiagonalStrIter::new(
-                input,
-                0,
-                i,
-                Direction::LeftToRight
-            ).collect();
+            let diagonal_ltr: String =
+                DiagonalStrIter::new(input, 0, i, Direction::LeftToRight).collect();
             count += diagonal_ltr.matches("XMAS").count();
             count += diagonal_ltr.matches("SAMX").count();
 
-            let diagonal_rtl: String = DiagonalStrIter::new(
-                input,
-                width-1,
-                i,
-                Direction::RightToLeft
-            ).collect();
+            let diagonal_rtl: String =
+                DiagonalStrIter::new(input, width - 1, i, Direction::RightToLeft).collect();
             count += diagonal_rtl.matches("XMAS").count();
             count += diagonal_rtl.matches("SAMX").count();
         }
@@ -144,11 +128,17 @@ impl Solution for Day4 {
         let height = input.lines().count();
         let mut count = 0;
 
-
         for i in 0..width {
-            let diagonal_ltr: String = DiagonalStrIter::new(input, i, 0, Direction::LeftToRight).collect();
-            for (j, _) in diagonal_ltr.match_indices("MAS").chain(diagonal_ltr.match_indices("SAM")) {
-                let maybe: String = DiagonalStrIter::new(input, i + j + 2, j, Direction::RightToLeft).take(3).collect();
+            let diagonal_ltr: String =
+                DiagonalStrIter::new(input, i, 0, Direction::LeftToRight).collect();
+            for (j, _) in diagonal_ltr
+                .match_indices("MAS")
+                .chain(diagonal_ltr.match_indices("SAM"))
+            {
+                let maybe: String =
+                    DiagonalStrIter::new(input, i + j + 2, j, Direction::RightToLeft)
+                        .take(3)
+                        .collect();
                 if maybe == "MAS" || maybe == "SAM" {
                     count += 1;
                 }
@@ -156,9 +146,16 @@ impl Solution for Day4 {
         }
 
         for i in 1..height {
-            let diagonal_ltr: String = DiagonalStrIter::new(input, 0, i, Direction::LeftToRight).collect();
-            for (j, _) in diagonal_ltr.match_indices("MAS").chain(diagonal_ltr.match_indices("SAM")) {
-                let maybe: String = DiagonalStrIter::new(input, j + 2, i + j, Direction::RightToLeft).take(3).collect();
+            let diagonal_ltr: String =
+                DiagonalStrIter::new(input, 0, i, Direction::LeftToRight).collect();
+            for (j, _) in diagonal_ltr
+                .match_indices("MAS")
+                .chain(diagonal_ltr.match_indices("SAM"))
+            {
+                let maybe: String =
+                    DiagonalStrIter::new(input, j + 2, i + j, Direction::RightToLeft)
+                        .take(3)
+                        .collect();
                 if maybe == "MAS" || maybe == "SAM" {
                     count += 1;
                 }
@@ -170,8 +167,7 @@ impl Solution for Day4 {
 }
 
 #[cfg(test)]
-const TEST_DATA: &str =
-r"MMMSXXMASM
+const TEST_DATA: &str = r"MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
 MSAMASMSMX

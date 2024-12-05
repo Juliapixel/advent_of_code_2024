@@ -20,11 +20,17 @@ impl Solution for Day5 {
             }
             updates.push(line.split(',').map(|p| p.parse().unwrap()).collect());
         }
-        let sum = updates.into_iter().filter(|m| {
-            m.iter().enumerate().all(|(i, p)| {
-                happens_before.get(p).map(|c| m[0..i].iter().all(|pp| !c.contains(pp))).unwrap_or(true)
+        let sum = updates
+            .into_iter()
+            .filter(|m| {
+                m.iter().enumerate().all(|(i, p)| {
+                    happens_before
+                        .get(p)
+                        .map(|c| m[0..i].iter().all(|pp| !c.contains(pp)))
+                        .unwrap_or(true)
+                })
             })
-        }).fold(0u32, |acc, m| acc + m[m.len() / 2] as u32);
+            .fold(0u32, |acc, m| acc + m[m.len() / 2] as u32);
 
         Box::new(sum)
     }
@@ -48,11 +54,20 @@ impl Solution for Day5 {
             .into_iter()
             .filter(|u| {
                 u.iter().enumerate().any(|(i, p)| {
-                    happens_before.get(p).map(|c| u[0..i].iter().any(|pp| c.contains(pp))).unwrap_or(false)
+                    happens_before
+                        .get(p)
+                        .map(|c| u[0..i].iter().any(|pp| c.contains(pp)))
+                        .unwrap_or(false)
                 })
             })
             .fold(0u32, |acc, mut u| {
-                u.sort_unstable_by(|a, b| happens_before.get(a).map(|i| i.contains(b)).unwrap_or(false).cmp(&true));
+                u.sort_unstable_by(|a, b| {
+                    happens_before
+                        .get(a)
+                        .map(|i| i.contains(b))
+                        .unwrap_or(false)
+                        .cmp(&true)
+                });
                 acc + u[u.len() / 2] as u32
             });
 
